@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="BMFModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="BMFModelTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="BMFModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="BMFModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="USERs1" EntityType="BMFModel.USER" />
+          <EntitySet Name="BOOKINGs1" EntityType="BMFModel.BOOKING" />
+          <EntitySet Name="FLIGHTs" EntityType="BMFModel.FLIGHT" />
+          <AssociationSet Name="USERBOOKING" Association="BMFModel.USERBOOKING">
+            <End Role="USER" EntitySet="USERs1" />
+            <End Role="BOOKING" EntitySet="BOOKINGs1" />
+          </AssociationSet>
+          <AssociationSet Name="FLIGHTBOOKING" Association="BMFModel.FLIGHTBOOKING">
+            <End Role="FLIGHT" EntitySet="FLIGHTs" />
+            <End Role="BOOKING" EntitySet="BOOKINGs1" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="email_id" />
+          </Key>
+          <Property Name="email_id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="password" Type="String" Nullable="false" />
+          <Property Name="role" Type="String" Nullable="false" />
+          <Property Name="first_name" Type="String" Nullable="false" />
+          <Property Name="last_name" Type="String" Nullable="false" />
+          <Property Name="gender" Type="String" Nullable="false" />
+          <Property Name="phone_number" Type="Int32" Nullable="false" />
+          <Property Name="date_of_birth" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="BOOKINGs" Relationship="BMFModel.USERBOOKING" FromRole="USER" ToRole="BOOKING" />
+        </EntityType>
+        <EntityType Name="BOOKING">
+          <Key>
+            <PropertyRef Name="booking_id" />
+          </Key>
+          <Property Name="booking_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="booking_date" Type="DateTime" Nullable="false" />
+          <Property Name="booking_status" Type="String" Nullable="false" />
+          <Property Name="b_amount_paid" Type="Int32" Nullable="false" />
+          <Property Name="no_of_passangers" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="USER" Relationship="BMFModel.USERBOOKING" FromRole="BOOKING" ToRole="USER" />
+          <Property Name="USER_email_id" Type="String" Nullable="false" />
+          <NavigationProperty Name="FLIGHT" Relationship="BMFModel.FLIGHTBOOKING" FromRole="BOOKING" ToRole="FLIGHT" />
+          <Property Name="FLIGHT_flight_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FLIGHT">
+          <Key>
+            <PropertyRef Name="flight_id" />
+          </Key>
+          <Property Name="flight_id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="flight_name" Type="String" Nullable="false" />
+          <Property Name="flight_source" Type="String" Nullable="false" />
+          <Property Name="flight_destination" Type="String" Nullable="false" />
+          <Property Name="source_time" Type="String" Nullable="false" />
+          <Property Name="destination_time" Type="String" Nullable="false" />
+          <Property Name="flight_duration" Type="String" Nullable="false" />
+          <Property Name="flight_fare" Type="Int32" Nullable="false" />
+          <Property Name="no_of_seats_available" Type="Int32" Nullable="false" />
+          <Property Name="date_of_journey" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="BOOKINGs" Relationship="BMFModel.FLIGHTBOOKING" FromRole="FLIGHT" ToRole="BOOKING" />
+        </EntityType>
+        <Association Name="USERBOOKING">
+          <End Type="BMFModel.USER" Role="USER" Multiplicity="1" />
+          <End Type="BMFModel.BOOKING" Role="BOOKING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="email_id" />
+            </Principal>
+            <Dependent Role="BOOKING">
+              <PropertyRef Name="USER_email_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FLIGHTBOOKING">
+          <End Type="BMFModel.FLIGHT" Role="FLIGHT" Multiplicity="1" />
+          <End Type="BMFModel.BOOKING" Role="BOOKING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FLIGHT">
+              <PropertyRef Name="flight_id" />
+            </Principal>
+            <Dependent Role="BOOKING">
+              <PropertyRef Name="FLIGHT_flight_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="BMFModel" />
+        <Alias Key="Target" Value="BMFModel.Store" />
+        <EntityContainerMapping CdmEntityContainer="BMFModelContainer" StorageEntityContainer="BMFModelTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

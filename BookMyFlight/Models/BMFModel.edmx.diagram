@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="924cd2475c66492ba5014042ba5e9f0c" Name="Diagram1" ZoomLevel="114" >
+        <EntityTypeShape EntityType="BMFModel.USER" Width="1.5" PointX="1.625" PointY="0.75" />
+        <EntityTypeShape EntityType="BMFModel.BOOKING" Width="1.5" PointX="4" PointY="0.75" />
+        <EntityTypeShape EntityType="BMFModel.FLIGHT" Width="1.75" PointX="6.125" PointY="0.5" />
+        <AssociationConnector Association="BMFModel.USERBOOKING" />
+        <AssociationConnector Association="BMFModel.FLIGHTBOOKING" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
